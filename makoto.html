@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>真｜誠実 × 日本人向けの透明性 — 無料EAのご案内</title>
+<meta name="description" content="費用が0円である理由。損をする可能性。止めるべき日。言いにくいことから先に、お伝えします。約束できないことは、約束しません。">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;700&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#12120F; --panel:#1A1915; --accent:#C5A059; --accent2:#A03A2E;
+  --gold:#C5A059; --ink:#EAE7DF; --mut:#A8B0C0; --line:rgba(255,255,255,.09);
+  --fd:'Zen Old Mincho', 'Shippori Mincho', serif; --fb:'Shippori Mincho', serif; --fm:monospace; --radius:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--fb);line-height:1.9;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:3;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;
+  background:linear-gradient(90deg,var(--accent),var(--gold));transform-origin:0 50%;transform:scaleX(0)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;
+  align-items:center;padding:14px 24px;background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .brand{font-family:var(--fd);letter-spacing:.18em;font-size:.95rem;color:var(--ink);text-decoration:none}
+.nav .brand em{font-style:normal;color:var(--accent)}
+.btn{display:inline-block;font-family:var(--fb);font-weight:600;text-decoration:none;
+  color:#0B0B0B;background:linear-gradient(120deg,var(--accent),var(--accent2));
+  padding:.9em 2.1em;border-radius:var(--radius);letter-spacing:.06em;
+  box-shadow:0 8px 30px color-mix(in srgb,var(--accent) 35%,transparent)}
+.nav .btn{padding:.55em 1.3em;font-size:.85rem}
+/* hero */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:120px 0 70px}
+.hero-bg{position:absolute;inset:0;background:
+  radial-gradient(60% 50% at 70% 12%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%),
+  radial-gradient(45% 40% at 12% 85%,color-mix(in srgb,var(--gold) 9%,transparent),transparent 70%)}
+.hero-in{position:relative;z-index:2;width:100%}
+.kicker{color:var(--accent);letter-spacing:.28em;font-size:.82rem;margin-bottom:1.4em;text-transform:uppercase}
+.hero h1{font-family:var(--fd);font-weight:600;font-size:clamp(2.1rem,5.6vw,4rem);line-height:1.32;letter-spacing:.02em}
+.hero .t2{color:var(--accent)}
+.hero-name{margin-top:1.3em;color:var(--gold);letter-spacing:.14em;font-size:.95rem}
+.hero-name em{font-style:normal;color:var(--mut);font-size:.8em;letter-spacing:.22em}
+.lead{margin-top:1.2em;color:var(--mut);max-width:38em;font-size:1.02rem}
+.btn-hero{margin-top:2.2em}
+.hero-stats{display:grid;gap:14px;margin-top:3.4em;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.chip{background:color-mix(in srgb,var(--panel) 88%,transparent);border:1px solid var(--line);
+  border-radius:var(--radius);padding:18px 20px}
+.chip b{display:block;font-family:var(--fd);font-size:1.7rem;color:var(--ink);font-weight:600}
+.chip span{color:var(--accent);font-size:.82rem;letter-spacing:.1em}
+.note{color:var(--mut);font-size:.78rem;line-height:1.65;margin-top:.6em}
+/* hero variants */
+.hero--center .hero-main{text-align:center;margin:0 auto;max-width:760px}
+.hero--center .lead{margin-left:auto;margin-right:auto}
+.hero--split .hero-in{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
+.hero--split .hero-stats{grid-template-columns:1fr;margin-top:0}
+.hero--bleed h1{font-size:clamp(2.5rem,7.5vw,5.4rem)}
+.hero--bleed .hero-main{max-width:900px}
+/* sections */
+.sec{padding:100px 0;border-top:1px solid var(--line);position:relative}
+.sec-kicker{color:var(--accent);letter-spacing:.3em;font-size:.75rem;text-transform:uppercase}
+.sec h2{font-family:var(--fd);font-weight:600;font-size:clamp(1.6rem,3.4vw,2.4rem);margin:.5em 0 .4em;letter-spacing:.03em}
+.sec-lead{color:var(--mut);max-width:40em;margin-bottom:1em}
+.grid{display:grid;gap:18px;margin-top:2.2em}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px}
+.card h3{font-family:var(--fd);font-weight:600;font-size:1.12rem;margin-bottom:.6em;color:var(--ink);letter-spacing:.04em}
+.card p{color:var(--mut);font-size:.95rem}
+.card-no{font-family:var(--fm);color:var(--accent);font-size:.8rem;letter-spacing:.2em;display:block;margin-bottom:1em}
+.win-who{color:var(--gold);font-family:var(--fd);letter-spacing:.12em;margin-bottom:.5em}
+.whyfree-note{margin-top:2em;color:var(--ink);border-left:2px solid var(--gold);padding:.4em 0 .4em 1.2em;max-width:44em}
+.step .num{display:inline-flex;width:2.4em;height:2.4em;align-items:center;justify-content:center;
+  font-family:var(--fm);background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent);
+  border-radius:50%;margin-bottom:1em;font-size:.9rem}
+.risk-list{list-style:none;margin-top:1.6em;max-width:46em}
+.risk-list li{padding:1.1em 0 1.1em 1.6em;border-bottom:1px solid var(--line);color:var(--ink);
+  font-size:.97rem;position:relative}
+.risk-list li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+.quoteband{padding:90px 0;text-align:center;border-top:1px solid var(--line);
+  background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--accent) 5%,transparent),transparent)}
+.quote{font-family:var(--fd);font-size:clamp(1.3rem,3vw,2rem);line-height:1.7;letter-spacing:.04em}
+.quote-by{margin-top:1.2em;color:var(--accent);letter-spacing:.3em;font-size:.78rem}
+.faq-list{margin-top:2em;max-width:52em}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;padding:1.2em 0;font-weight:600;font-size:1rem;list-style:none;position:relative;padding-right:2em}
+summary::after{content:"+";position:absolute;right:.2em;color:var(--accent);font-family:var(--fm)}
+details[open] summary::after{content:"−"}
+details p{color:var(--mut);padding:0 0 1.4em;max-width:46em;font-size:.95rem}
+/* final cta */
+.final{padding:120px 0;text-align:center;border-top:1px solid var(--line);position:relative}
+.final::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 50% 100%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%)}
+.final .wrap{position:relative}
+.final h2{font-family:var(--fd);font-weight:600;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.03em}
+.final p{color:var(--mut);max-width:36em;margin:1.2em auto 0}
+.final .btn{margin-top:2.4em}
+.disclosure{margin-top:3em;color:var(--mut);font-size:.82rem}
+footer{border-top:1px solid var(--line);padding:56px 0 72px}
+footer .legal{color:var(--mut);font-size:.8rem;line-height:1.9;max-width:60em}
+footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em}
+.reveal,.stagger>*{opacity:0}
+@media (max-width:760px){
+  .hero--split .hero-in{grid-template-columns:1fr}
+  .hero--split .hero-stats{margin-top:2.4em}
+  .sec{padding:72px 0}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal,.stagger>*{opacity:1!important;transform:none!important}
+}
+.kicker{color:var(--accent2);letter-spacing:.5em}.hero--center::after{content:'誠';position:absolute;right:8vw;bottom:10vh;font-family:var(--fd);font-size:8rem;color:var(--accent2);opacity:.12;border:1px solid currentColor;line-height:1.15;padding:.1em .12em}
+</style>
+</head>
+<body>
+<div class="progress"></div>
+<nav class="nav">
+  <a class="brand" href="#">MAKOTO<em> ／ 真</em></a>
+  <a class="btn" href="https://aurum-lux-official.github.io/Jayforluxea/?utm_source=makoto&utm_medium=char_lp&utm_campaign=ea_squad">内容に納得した上で申請する</a>
+</nav>
+<header class="hero hero--center">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-in">
+    <div class="hero-main">
+      <p class="kicker">誠実、それだけ。</p>
+      <h1><span class="t1">隠しごとのない、</span><br><span class="t2">自動売買を。</span></h1>
+      <p class="hero-name">真 <em>MAKOTO</em> — 誠実 × 日本人向けの透明性</p>
+      <p class="lead">費用が0円である理由。損をする可能性。止めるべき日。言いにくいことから先に、お伝えします。約束できないことは、約束しません。</p>
+      <a class="btn btn-hero" href="https://aurum-lux-official.github.io/Jayforluxea/?utm_source=makoto&utm_medium=char_lp&utm_campaign=ea_squad">内容に納得した上で申請する</a>
+    </div>
+    <div class="hero-stats"><div class="chip"><b>約350回/日</b><span>エントリー頻度の目安</span><p class="note">※回数は目安であり、相場環境・銘柄・設定により大きく変動します。</p></div><div class="chip"><b>約20名</b><span>現在の稼働ユーザー</span><p class="note">※表示時点の稼働口座数であり、成果は利用者ごとに異なります。</p></div><div class="chip"><b>¥0</b><span>システム利用料</span><p class="note">※取引に伴うスプレッド等のコスト・損失リスクは利用者の負担です。</p></div></div>
+  </div>
+</header>
+<section class="sec sec--risk" id="risk"><div class="wrap"><p class="sec-kicker reveal">RISK DISCLOSURE</p><h2 class="reveal">先に、リスクの話</h2><p class="sec-lead reveal">本ページで最も大切な項目です。最初に置きました。</p><ul class="risk-list"><li class="reveal">外国為替証拠金取引（FX）は価格変動により損失が生じるリスクを伴い、投資元本を割り込む可能性があります。</li><li class="reveal">過去の稼働実績・表示している数値は、将来の成果を示すものでも保証するものでもありません。</li><li class="reveal">重要指標の前後など、稼働を止めるべき日があります。運用ルールとして事前に案内します。</li><li class="reveal">利用は余剰資金の範囲で、ご自身の判断と責任のもとで行ってください。</li></ul></div></section><section class="sec sec--whyfree" id="whyfree"><div class="wrap"><p class="sec-kicker reveal">WHY FREE</p><h2 class="reveal">なぜ、無料なのか</h2><p class="sec-lead reveal">無料の理由を、お金の流れのままにご説明します。</p><div class="grid grid-3 stagger"><div class="card win"><p class="win-who">利用者</p><p>システムを無料で利用できる。仕組みとリスクの説明を先に受けられる。</p></div><div class="card win"><p class="win-who">ブローカー</p><p>稼働データ・利用傾向・検証データがサービス改善に活かされる。</p></div><div class="card win"><p class="win-who">開発チーム</p><p>技術協力・共同検証・データ提供の対価として報酬を受け取る。</p></div></div><p class="whyfree-note reveal">利用者・ブローカー・開発チームの三者がそれぞれ利益を得る構造だから、利用者への請求が必要ありません。報酬は技術協力・共同検証・データ提供の対価です。</p></div></section><section class="sec sec--system" id="system"><div class="wrap"><p class="sec-kicker reveal">THE SYSTEM</p><h2 class="reveal">システムの事実</h2><p class="sec-lead reveal">仕組みの要点を、飾らずに記します。</p><div class="grid grid-2 stagger"><div class="card feat"><h3>高頻度ロジック</h3><p>1日あたり約350回前後のエントリーを自動執行。人間の手では再現できない頻度を、決められたルール通りに淡々と実行します。</p><p class="note">※回数は目安であり、相場環境により変動します。</p></div><div class="card feat"><h3>危険日は、止める</h3><p>重要指標の前後や流動性の低い日は稼働を止めることを前提にした運用設計。回すことより「止める判断」を重視しています。</p></div><div class="card feat"><h3>無料である理由</h3><p>利用者の稼働データ・継続率・検証データがブローカーのシステム改善に活かされ、開発側はその技術協力・共同検証の対価を受け取ります。だから利用者は無料です。</p></div><div class="card feat"><h3>設置まで伴走</h3><p>申請からMT5の設置、稼働開始までを手順書とサポートで案内します。わからないまま放置しません。</p></div></div></div></section><section class="sec sec--principles" id="principles"><div class="wrap"><p class="sec-kicker reveal">PRINCIPLES</p><h2 class="reveal">真の三箇条</h2><div class="grid grid-3 stagger"><div class="card"><span class="card-no">01</span><h3>先に不利益を言う</h3><p>良い話の前に、損失の可能性と「向いていない方」の条件からお伝えします。</p></div><div class="card"><span class="card-no">02</span><h3>数字は根拠とともに</h3><p>出どころを言えない数字は使いません。目安には必ず注記を添えます。</p></div><div class="card"><span class="card-no">03</span><h3>約束は守れる範囲で</h3><p>「サポートする」「危険日は案内する」。守れる約束だけを口にします。</p></div></div></div></section><section class="sec sec--steps" id="steps"><div class="wrap"><p class="sec-kicker reveal">HOW TO START</p><h2 class="reveal">始め方は、3ステップ</h2><div class="grid grid-3 stagger"><div class="card step"><span class="num">01</span><h3>申請</h3><p>申請フォームから必要事項を送信。内容の確認・案内の連絡があります。</p></div><div class="card step"><span class="num">02</span><h3>設置</h3><p>MT5の設置を手順書とサポートで案内。環境が苦手でも順番に進められます。</p></div><div class="card step"><span class="num">03</span><h3>稼働</h3><p>危険日ルールと資金管理の案内とあわせて、稼働を開始します。</p></div></div></div></section><section class="sec sec--faq" id="faq"><div class="wrap"><p class="sec-kicker reveal">FAQ</p><h2 class="reveal">よくある質問</h2><div class="faq-list"><details class="reveal"><summary>本当に無料ですか？お金はどこから出ているのですか？</summary><p>はい、無料です。利用者の皆さまの稼働データ・検証データがブローカーのシステム改善に用いられ、開発側はその技術協力・共同検証の対価を受け取っています。利用者の方から頂かない理由は、この構造にあります。</p></details><details class="reveal"><summary>必ず利益が出ますか？</summary><p>いいえ。利益のお約束はできません。損失が生じる可能性があります。この一点にご納得いただけない場合は、ご利用をお控えください。</p></details><details class="reveal"><summary>何から始めればいいですか？</summary><p>申請、設置、稼働の順です。設置は手順書とサポートをご用意しています。ご不明点は遠慮なくお尋ねください。</p></details><details class="reveal"><summary>JAY（AURUM）との関係は？</summary><p>JAY（AURUM）と同一の運営グループです。私は日本の方に向けて、同じ仕組みを丁寧にご説明する役割です。</p></details></div></div></section>
+<section class="quoteband"><div class="wrap"><p class="quote reveal">“正直は、いちばん強い営業だと思っています。”</p><p class="quote-by reveal">— MAKOTO</p></div></section>
+<section class="final">
+  <div class="wrap">
+    <p class="sec-kicker reveal">APPLICATION</p>
+    <h2 class="reveal">ご納得いただけた方だけ、どうぞ。</h2>
+    <p class="reveal">仕組みとリスクをお読みいただき、ご自身の判断で申請してください。迷われている間は、申請されないことをおすすめします。</p>
+    <a class="btn reveal" href="https://aurum-lux-official.github.io/Jayforluxea/?utm_source=makoto&utm_medium=char_lp&utm_campaign=ea_squad">内容に納得した上で申請する</a>
+    <p class="disclosure">本ページは JAY／AURUM と同一の運営グループが運営する、キャラクター別のご案内ページです。</p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <p class="legal">【免責事項およびリスク開示】本ページに表示する数値（エントリー回数・稼働ユーザー数等）は、運営の内部データに基づく直近の目安であり、将来の運用成果を示すものでも、利益を保証するものでもありません。実際の結果は、入金額・運用期間・相場環境、および利用者ご自身の判断・設定により大きく異なり、投資元本を割り込む損失が生じる可能性があります。本サービスの利用、口座開設、入金額の決定は、すべて利用者ご自身の判断と責任において行ってください。外国為替証拠金取引（FX）は価格変動により損失が生じるリスクを伴います。</p>
+    <p class="cr">© 2026 AURUM GROUP — MAKOTO</p>
+  </div>
+</footer>
+<script type="module">
+import { animate, scroll, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.13.5/+esm";
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (reduce) {
+  document.querySelectorAll(".reveal, .stagger > *").forEach(el => { el.style.opacity = 1; });
+} else {
+  animate(".hero .kicker", { opacity: [0, 1], y: [14, 0] }, { duration: 0.6 });
+  animate(".hero h1", { opacity: [0, 1], y: [26, 0] }, { duration: 0.8, delay: 0.15 });
+  animate(".hero .hero-name, .hero .lead", { opacity: [0, 1], y: [18, 0] }, { duration: 0.7, delay: stagger(0.12, { startDelay: 0.35 }) });
+  animate(".hero .btn-hero", { opacity: [0, 1], y: [14, 0] }, { duration: 0.6, delay: 0.6 });
+  animate(".hero .chip", { opacity: [0, 1], y: [20, 0] }, { duration: 0.6, delay: stagger(0.1, { startDelay: 0.7 }) });
+  scroll(animate(".progress", { scaleX: [0, 1] }, { easing: "linear" }));
+  inView(".reveal", (el) => {
+    animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
+  }, { margin: "0px 0px -60px 0px" });
+  inView(".stagger", (el) => {
+    animate(el.children, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, delay: stagger(0.09) });
+  }, { margin: "0px 0px -60px 0px" });
+  document.querySelectorAll(".btn").forEach(b => {
+    b.addEventListener("pointerenter", () => animate(b, { scale: 1.04 }, { type: "spring", stiffness: 320, damping: 20 }));
+    b.addEventListener("pointerleave", () => animate(b, { scale: 1 }, { type: "spring", stiffness: 320, damping: 20 }));
+  });
+}
+</script>
+</body>
+</html>
