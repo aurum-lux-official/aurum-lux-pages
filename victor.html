@@ -298,6 +298,22 @@ details p{color:var(--mut);padding:0 0 1.4em;max-width:46em;font-size:.95rem}
 .theme-bubble .sec-kicker::before{content:none}
 .theme-bubble .card{border-radius:22px}
 .theme-bubble .sec h2::after{content:none}
+/* 稼働画面ギャラリー＋ライトボックス */
+.shots{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));margin-top:2.2em}
+.shot{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  background:var(--panel);cursor:zoom-in;padding:0;transition:border-color .3s}
+.shot:hover{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:16/10;transition:transform .45s ease}
+.shot:hover img{transform:scale(1.05)}
+.shot-cap{position:absolute;left:0;right:0;bottom:0;padding:.6em .9em;font-size:.72rem;color:var(--ink);
+  background:linear-gradient(transparent,rgba(0,0,0,.78));text-align:left}
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.9);display:flex;align-items:center;
+  justify-content:center;padding:24px;backdrop-filter:blur(4px);cursor:zoom-out}
+.lightbox[hidden]{display:none}
+.lightbox img{max-width:96vw;max-height:92vh;border-radius:6px;box-shadow:0 20px 80px rgba(0,0,0,.6)}
+.lb-close{position:absolute;top:16px;right:22px;background:none;border:none;color:#fff;font-size:1.7rem;
+  cursor:pointer;line-height:1;opacity:.8}
+.lb-close:hover{opacity:1}
 /* pricing */
 .price{max-width:52em;margin-top:2.2em;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .price-row{display:flex;justify-content:space-between;align-items:baseline;gap:1.5em;padding:1.15em 1.5em;border-bottom:1px solid var(--line)}
@@ -558,6 +574,18 @@ if (reduce) {
     });
   }
 }
+// ライトボックス（reduced-motionに関係なく動作）
+(function() {
+  var lb = document.getElementById("lightbox");
+  if (!lb) return;
+  var img = document.getElementById("lb-img");
+  function close() { lb.hidden = true; img.src = ""; }
+  document.querySelectorAll(".shot").forEach(function(s) {
+    s.addEventListener("click", function() { img.src = s.getAttribute("data-full"); lb.hidden = false; });
+  });
+  lb.addEventListener("click", function() { close(); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") close(); });
+})();
 </script>
 </body>
 </html>
