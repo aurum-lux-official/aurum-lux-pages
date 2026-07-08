@@ -26,7 +26,7 @@
   --fd:'Cinzel', 'Noto Serif JP', serif; --fb:'Noto Serif JP', serif; --fm:monospace; --radius:6px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{background:var(--bg);color:var(--ink);font-family:var(--fb);line-height:1.9;
   -webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:color-mix(in srgb,var(--accent) 40%,transparent);color:var(--ink)}
@@ -53,7 +53,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z
 .btn:hover::after{left:130%}
 .nav .btn{padding:.55em 1.3em;font-size:.85rem}
 /* hero */
-.hero{position:relative;min-height:clamp(520px,78vh,820px);display:flex;align-items:center;padding:104px 0 48px}
+.hero{position:relative;overflow:hidden;min-height:clamp(520px,78vh,820px);display:flex;align-items:center;padding:104px 0 48px}
 .hero-bg{position:absolute;inset:0;background:
   radial-gradient(60% 50% at 70% 12%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%),
   radial-gradient(45% 40% at 12% 85%,color-mix(in srgb,var(--gold) 9%,transparent),transparent 70%)}
@@ -188,6 +188,24 @@ details p{color:var(--mut);padding:0 0 1.4em;max-width:46em;font-size:.95rem}
 .f-done-title{font-family:var(--fd);font-size:1.5rem;color:var(--accent);margin-bottom:.8em;letter-spacing:.06em}
 .f-done p{color:var(--mut)}
 @media (max-width:640px){.f-grid{grid-template-columns:1fr}.apply-frame{padding:28px 20px}}
+/* v8: クレスト紋章・大気感 */
+.hero-fx{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-crest-deco{position:absolute;z-index:1;pointer-events:none;top:50%;right:-3vw;transform:translateY(-50%);
+  width:min(46vw,470px);filter:drop-shadow(0 0 40px color-mix(in srgb,var(--accent) 20%,transparent))}
+.hero--split .hero-crest-deco{opacity:.62;width:min(40vw,420px);right:-1vw}
+.hero-crest-badge{width:128px;margin:0 auto 22px;filter:drop-shadow(0 0 30px color-mix(in srgb,var(--accent) 24%,transparent))}
+.crest{display:block;width:100%;height:auto;overflow:visible}
+.crest-bezel{transform-box:fill-box;transform-origin:center;animation:crestspin 68s linear infinite}
+@keyframes crestspin{to{transform:rotate(360deg)}}
+.cursor-glow{position:fixed;top:0;left:0;width:360px;height:360px;border-radius:50%;pointer-events:none;z-index:40;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 24%,transparent),transparent 60%);
+  transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;transition:opacity .45s ease}
+@media(pointer:coarse){.cursor-glow{display:none}}
+@media(max-width:760px){
+  .hero-crest-deco{opacity:.22;width:78vw;right:-18vw;filter:none}
+  .hero--split .hero-crest-deco{opacity:.22}
+}
+@media(prefers-reduced-motion:reduce){.crest-bezel{animation:none}}
 /* v5: チャート・図解 */
 .freq{margin:2.4em 0 1.4em;max-width:46em}
 .freq-title{font-size:.88rem;color:var(--ink);letter-spacing:.08em;margin-bottom:1.1em}
@@ -313,9 +331,11 @@ footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em
 </nav>
 <header class="hero hero--bleed">
   <div class="hero-bg"></div>
-  <span class="hero-mono" aria-hidden="true">V</span>
+  <canvas class="hero-fx" aria-hidden="true"></canvas>
+  <div class="hero-crest-deco" aria-hidden="true"><svg class="crest" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="cg_victor" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C2606C"/><stop offset="1" stop-color="#8C2F39"/></linearGradient><radialGradient id="cg_victor_g"><stop offset="0" stop-color="#8C2F39" stop-opacity=".18"/><stop offset="1" stop-color="#8C2F39" stop-opacity="0"/></radialGradient></defs><circle cx="100" cy="100" r="99" fill="url(#cg_victor_g)"/><circle cx="100" cy="100" r="99" fill="none" stroke="#8C2F39" stroke-width="0.6" stroke-opacity=".22"/><g class="crest-bezel"><line x1="100" y1="10" x2="100" y2="23" transform="rotate(0.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(7.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(15.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(22.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(30.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(37.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(45.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(52.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(60.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(67.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(75.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(82.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(90.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(97.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(105.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(112.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(120.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(127.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(135.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(142.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(150.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(157.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(165.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(172.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(180.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(187.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(195.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(202.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(210.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(217.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(225.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(232.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(240.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(247.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(255.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(262.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(270.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(277.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(285.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(292.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(300.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(307.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(315.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(322.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="23" transform="rotate(330.00 100 100)" stroke="#8C2F39" stroke-width="1.5" stroke-opacity="0.9"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(337.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(345.00 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><line x1="100" y1="10" x2="100" y2="17" transform="rotate(352.50 100 100)" stroke="#8C2F39" stroke-width="0.6" stroke-opacity="0.3"/><g transform="rotate(0 100 100)"><rect x="96.5" y="2.6" width="7" height="7" transform="rotate(45 100 6.1)" fill="#C5A059"/></g><g transform="rotate(90 100 100)"><rect x="96.5" y="2.6" width="7" height="7" transform="rotate(45 100 6.1)" fill="#C5A059"/></g><g transform="rotate(180 100 100)"><rect x="96.5" y="2.6" width="7" height="7" transform="rotate(45 100 6.1)" fill="#C5A059"/></g><g transform="rotate(270 100 100)"><rect x="96.5" y="2.6" width="7" height="7" transform="rotate(45 100 6.1)" fill="#C5A059"/></g></g><circle cx="100" cy="100" r="90" fill="none" stroke="#8C2F39" stroke-width="1" stroke-opacity=".5"/><circle cx="100" cy="100" r="64" fill="none" stroke="#8C2F39" stroke-width="1" stroke-opacity=".32"/><path d="M100 65 L129 75 V101 Q129 125 100 135 Q71 125 71 101 V75 Z" fill="none" stroke="url(#cg_victor)" stroke-width="1.5"/><path d="M100 74 L120 81 V101 Q120 117 100 124 Q80 117 80 101 V81 Z" fill="none" stroke="url(#cg_victor)" stroke-width="0.7" stroke-opacity=".5"/><text x="100" y="101" text-anchor="middle" dominant-baseline="central" font-family="'Cinzel', 'Noto Serif JP', serif" font-size="44" fill="url(#cg_victor)">V</text></svg></div>
   <div class="wrap hero-in">
     <div class="hero-main">
+      
       <p class="kicker">KNOW WHEN TO FOLD</p>
       <h1><span class="t1">引き際を知る者だけが、</span><br><span class="t2">勝負を続けられる。</span></h1>
       <p class="hero-name">ビクター <em>VICTOR</em> — 勝負師 × リスク管理</p>
@@ -464,6 +484,7 @@ if (reduce) {
   animate(".hero .hero-name, .hero .lead", { opacity: [0, 1], y: [18, 0] }, { duration: 0.7, delay: stagger(0.12, { startDelay: 0.35 }) });
   animate(".hero .btn-hero", { opacity: [0, 1], y: [14, 0] }, { duration: 0.6, delay: 0.6 });
   animate(".hero .chip", { opacity: [0, 1], y: [20, 0] }, { duration: 0.6, delay: stagger(0.1, { startDelay: 0.7 }) });
+  animate(".hero-crest-badge, .hero-crest-deco", { opacity: [0, 1], scale: [0.88, 1] }, { duration: 1.1, delay: 0.25, easing: [0.16, 1, 0.3, 1] });
   scroll(animate(".progress", { scaleX: [0, 1] }, { easing: "linear" }));
   const heroEl = document.querySelector(".hero");
   scroll(animate(".hero-bg", { y: [0, -60] }, { easing: "linear" }),
@@ -474,10 +495,62 @@ if (reduce) {
   inView(".stagger", (el) => {
     animate(el.children, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, delay: stagger(0.09) });
   }, { margin: "0px 0px -60px 0px" });
-  document.querySelectorAll(".btn").forEach(b => {
+  document.querySelectorAll(".btn:not(.btn-hero)").forEach(b => {
     b.addEventListener("pointerenter", () => animate(b, { scale: 1.04 }, { type: "spring", stiffness: 320, damping: 20 }));
     b.addEventListener("pointerleave", () => animate(b, { scale: 1 }, { type: "spring", stiffness: 320, damping: 20 }));
   });
+  // 大気感: 浮遊パーティクル
+  var fx = document.querySelector(".hero-fx");
+  if (fx) {
+    var ctx = fx.getContext("2d");
+    var DPR = Math.min(2, window.devicePixelRatio || 1);
+    var box = fx.parentElement;
+    var rgb = [140, 47, 57];
+    var W = 0, H = 0, parts = [];
+    function newp(init) {
+      return { x: Math.random() * W, y: init ? Math.random() * H : H + 8,
+        r: (Math.random() * 1.4 + 0.4) * DPR, s: (Math.random() * 0.26 + 0.05) * DPR,
+        a: Math.random() * 0.13 + 0.03, d: (Math.random() - 0.5) * 0.12 * DPR };
+    }
+    function resize() {
+      var r = box.getBoundingClientRect();
+      W = fx.width = Math.max(1, Math.round(r.width * DPR));
+      H = fx.height = Math.max(1, Math.round(r.height * DPR));
+      fx.style.width = r.width + "px"; fx.style.height = r.height + "px";
+      var n = Math.min(48, Math.round(r.width * r.height / 24000));
+      parts = []; for (var i = 0; i < n; i++) parts.push(newp(true));
+    }
+    function tick() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i]; p.y -= p.s; p.x += p.d;
+        if (p.y < -8) parts[i] = newp(false);
+        else { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283);
+          ctx.fillStyle = "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + p.a + ")"; ctx.fill(); }
+      }
+      requestAnimationFrame(tick);
+    }
+    resize(); tick(); window.addEventListener("resize", resize);
+  }
+  // カーソルグロウ
+  var glow = document.createElement("div"); glow.className = "cursor-glow"; document.body.appendChild(glow);
+  window.addEventListener("pointermove", function(e) {
+    glow.style.left = e.clientX + "px"; glow.style.top = e.clientY + "px"; glow.classList.add("on");
+    glow.style.opacity = "1";
+  });
+  window.addEventListener("pointerleave", function() { glow.style.opacity = "0"; });
+  // マグネティックCTA（ヒーロー）
+  var mb = document.querySelector(".btn-hero");
+  if (mb) {
+    mb.addEventListener("pointermove", function(e) {
+      var r = mb.getBoundingClientRect();
+      animate(mb, { x: (e.clientX - (r.left + r.width / 2)) * 0.22, y: (e.clientY - (r.top + r.height / 2)) * 0.34, scale: 1.05 },
+        { type: "spring", stiffness: 260, damping: 16 });
+    });
+    mb.addEventListener("pointerleave", function() {
+      animate(mb, { x: 0, y: 0, scale: 1 }, { type: "spring", stiffness: 260, damping: 16 });
+    });
+  }
 }
 </script>
 </body>
