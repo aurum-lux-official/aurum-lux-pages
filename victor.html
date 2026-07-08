@@ -19,6 +19,10 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--fb);line-height:1.9;
   -webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:color-mix(in srgb,var(--accent) 40%,transparent);color:var(--ink)}
+html::-webkit-scrollbar{width:9px}
+html::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--accent) 45%,var(--bg));border-radius:6px}
+html::-webkit-scrollbar-track{background:var(--bg)}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:3;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
@@ -31,11 +35,15 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z
 .nav .brand em{font-style:normal;color:var(--accent)}
 .btn{display:inline-block;font-family:var(--fb);font-weight:600;text-decoration:none;
   color:#0B0B0B;background:linear-gradient(120deg,var(--accent),var(--accent2));
-  padding:.9em 2.1em;border-radius:var(--radius);letter-spacing:.06em;
+  padding:.9em 2.1em;border-radius:var(--radius);letter-spacing:.08em;position:relative;overflow:hidden;
   box-shadow:0 8px 30px color-mix(in srgb,var(--accent) 35%,transparent)}
+.btn::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg);transition:left .55s ease}
+.btn:hover::after{left:130%}
 .nav .btn{padding:.55em 1.3em;font-size:.85rem}
 /* hero */
-.hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:120px 0 70px}
+.hero{position:relative;min-height:clamp(560px,92vh,960px);display:flex;align-items:center;padding:120px 0 70px}
 .hero-bg{position:absolute;inset:0;background:
   radial-gradient(60% 50% at 70% 12%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%),
   radial-gradient(45% 40% at 12% 85%,color-mix(in srgb,var(--gold) 9%,transparent),transparent 70%)}
@@ -49,7 +57,8 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z
 .btn-hero{margin-top:2.2em}
 .hero-stats{display:grid;gap:14px;margin-top:3.4em;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
 .chip{background:color-mix(in srgb,var(--panel) 88%,transparent);border:1px solid var(--line);
-  border-radius:var(--radius);padding:18px 20px}
+  border-radius:var(--radius);padding:18px 20px;transition:border-color .3s}
+.chip:hover{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
 .chip b{display:block;font-family:var(--fd);font-size:1.7rem;color:var(--ink);font-weight:600}
 .chip span{color:var(--accent);font-size:.82rem;letter-spacing:.1em}
 .note{color:var(--mut);font-size:.78rem;line-height:1.65;margin-top:.6em}
@@ -62,15 +71,24 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z
 .hero--bleed .hero-main{max-width:900px}
 /* sections */
 .sec{padding:100px 0;border-top:1px solid var(--line);position:relative}
+.sec::before{content:"◆";position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+  color:color-mix(in srgb,var(--accent) 65%,transparent);font-size:.7rem;background:var(--bg);padding:0 14px}
 .sec-kicker{color:var(--accent);letter-spacing:.3em;font-size:.75rem;text-transform:uppercase}
+.sec-kicker::before{content:"";display:inline-block;width:2em;height:1px;background:var(--accent);
+  vertical-align:middle;margin-right:1em;opacity:.7}
 .sec h2{font-family:var(--fd);font-weight:600;font-size:clamp(1.6rem,3.4vw,2.4rem);margin:.5em 0 .4em;letter-spacing:.03em}
+.sec h2::after{content:"";display:block;width:3.2em;height:1px;margin-top:.55em;
+  background:linear-gradient(90deg,var(--gold),transparent)}
 .sec-lead{color:var(--mut);max-width:40em;margin-bottom:1em}
 .grid{display:grid;gap:18px;margin-top:2.2em}
 .grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
 .grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;
+  transition:transform .3s ease,border-color .3s ease}
+.card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
 .card h3{font-family:var(--fd);font-weight:600;font-size:1.12rem;margin-bottom:.6em;color:var(--ink);letter-spacing:.04em}
 .card p{color:var(--mut);font-size:.95rem}
+.card ul{margin-top:.4em}
 .card-no{font-family:var(--fm);color:var(--accent);font-size:.8rem;letter-spacing:.2em;display:block;margin-bottom:1em}
 .win-who{color:var(--gold);font-family:var(--fd);letter-spacing:.12em;margin-bottom:.5em}
 .whyfree-note{margin-top:2em;color:var(--ink);border-left:2px solid var(--gold);padding:.4em 0 .4em 1.2em;max-width:44em}
@@ -87,10 +105,38 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z
 .quote-by{margin-top:1.2em;color:var(--accent);letter-spacing:.3em;font-size:.78rem}
 .faq-list{margin-top:2em;max-width:52em}
 details{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;padding:1.2em 0;font-weight:600;font-size:1rem;list-style:none;position:relative;padding-right:2em}
+summary{cursor:pointer;padding:1.2em 0;font-weight:600;font-size:1rem;list-style:none;position:relative;
+  padding-right:2em;transition:color .25s}
+summary:hover{color:var(--accent2)}
 summary::after{content:"+";position:absolute;right:.2em;color:var(--accent);font-family:var(--fm)}
 details[open] summary::after{content:"−"}
 details p{color:var(--mut);padding:0 0 1.4em;max-width:46em;font-size:.95rem}
+/* signature parts */
+.table-wrap{overflow-x:auto;margin-top:2.2em}
+.sig-table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:520px}
+.sig-table th,.sig-table td{text-align:left;padding:.9em 1em;border-bottom:1px solid var(--line)}
+.sig-table thead th{color:var(--accent);font-size:.78rem;letter-spacing:.2em;font-family:var(--fm)}
+.sig-table tbody th{color:var(--ink);font-weight:600}
+.sig-table td{color:var(--ink)}
+.sig-table td.rem{color:var(--mut);font-size:.85rem}
+.okite,.checklist{margin-top:1.8em;max-width:40em}
+/* trust parts (AURUM移植) */
+.asof{font-family:var(--fm);color:var(--mut);font-size:.7rem;letter-spacing:.3em;margin:3.2em 0 .8em}
+.hero--split .hero-stats-wrap .asof{margin-top:0}
+.steps-note{margin-top:2em;color:var(--ink);font-size:.95rem;border-left:2px solid var(--accent);padding:.3em 0 .3em 1.1em;max-width:44em}
+.steps-note .note{display:block;margin-top:.2em}
+.cal{margin-top:2em;max-width:46em}
+.cal-row{display:flex;align-items:baseline;gap:1.2em;padding:1em 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.cal-date{font-family:var(--fm);color:var(--ink);font-size:.9rem;min-width:11em}
+.cal-ev{flex:1;color:var(--mut);font-size:.95rem;min-width:14em}
+.cal-ev em{font-style:normal;font-family:var(--fm);color:var(--accent);font-size:.75rem;margin-left:.6em;letter-spacing:.15em}
+.cal-badge{font-size:.72rem;letter-spacing:.18em;padding:.3em .9em;border-radius:999px;white-space:nowrap}
+.cal-badge.b3{color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.cal-badge.b2{color:var(--mut);border:1px solid var(--line)}
+.cal-empty{color:var(--mut);font-size:.9rem;padding:1.2em 0}
+.cmp td{color:var(--mut)}
+.cmp td.ours{color:var(--ink);border-left:2px solid color-mix(in srgb,var(--accent) 50%,transparent);
+  background:color-mix(in srgb,var(--accent) 6%,transparent)}
 /* final cta */
 .final{padding:120px 0;text-align:center;border-top:1px solid var(--line);position:relative}
 .final::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 50% 100%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%)}
@@ -98,7 +144,7 @@ details p{color:var(--mut);padding:0 0 1.4em;max-width:46em;font-size:.95rem}
 .final h2{font-family:var(--fd);font-weight:600;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.03em}
 .final p{color:var(--mut);max-width:36em;margin:1.2em auto 0}
 .final .btn{margin-top:2.4em}
-.disclosure{margin-top:3em;color:var(--mut);font-size:.82rem}
+.final-note{margin-top:3em;color:var(--mut);font-size:.82rem}
 footer{border-top:1px solid var(--line);padding:56px 0 72px}
 footer .legal{color:var(--mut);font-size:.8rem;line-height:1.9;max-width:60em}
 footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em}
@@ -112,7 +158,7 @@ footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em
   *{animation:none!important;transition:none!important}
   .reveal,.stagger>*{opacity:1!important;transform:none!important}
 }
-.sec--risk .card{border-left:2px solid var(--accent)}
+.hero-bg::after{content:'◆';position:absolute;right:6vw;top:18vh;font-size:11rem;color:rgba(140,47,57,.10);line-height:1}.sec--risk .risk-list li{border-left:2px solid var(--accent);border-bottom:none;padding-left:1.4em;margin-bottom:.6em}.okite li{font-family:var(--fb);font-size:1.05rem;padding:1em 0;border-bottom:1px solid var(--line);list-style:none}.okite li::before{content:none}.okite .no{font-family:var(--fd);color:var(--accent);margin-right:1em;letter-spacing:.2em}
 </style>
 </head>
 <body>
@@ -131,10 +177,13 @@ footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em
       <p class="lead">勝負の本質は、張ることじゃない。降りることだ。このEAの価値は回数じゃなく、「止める日」が決まっていることにある。</p>
       <a class="btn btn-hero" href="https://aurum-lux-official.github.io/Jayforluxea/?utm_source=victor&utm_medium=char_lp&utm_campaign=ea_squad">引き際を理解した上で申請する</a>
     </div>
-    <div class="hero-stats"><div class="chip"><b>約350回/日</b><span>エントリー頻度の目安</span><p class="note">※回数は目安であり、相場環境・銘柄・設定により大きく変動します。</p></div><div class="chip"><b>約20名</b><span>現在の稼働ユーザー</span><p class="note">※表示時点の稼働口座数であり、成果は利用者ごとに異なります。</p></div><div class="chip"><b>¥0</b><span>システム利用料</span><p class="note">※取引に伴うスプレッド等のコスト・損失リスクは利用者の負担です。</p></div></div>
+    <div class="hero-stats-wrap">
+      <p class="asof">RECORD AS OF <span id="asof-date"></span></p>
+      <div class="hero-stats"><div class="chip"><b>約350回/日</b><span>エントリー頻度の目安</span><p class="note">※回数は目安であり、相場環境・銘柄・設定により大きく変動します。</p></div><div class="chip"><b>約20名</b><span>現在の稼働ユーザー</span><p class="note">※表示時点の稼働口座数であり、成果は利用者ごとに異なります。</p></div><div class="chip"><b>¥0</b><span>システム利用料</span><p class="note">※取引に伴うスプレッド等のコスト・損失リスクは利用者の負担です。</p></div></div>
+    </div>
   </div>
 </header>
-<section class="sec sec--risk" id="risk"><div class="wrap"><p class="sec-kicker reveal">RISK DISCLOSURE</p><h2 class="reveal">先に、リスクの話</h2><p class="sec-lead reveal">損失の可能性から目を逸らすなら、この先を読まなくていい。</p><ul class="risk-list"><li class="reveal">外国為替証拠金取引（FX）は価格変動により損失が生じるリスクを伴い、投資元本を割り込む可能性があります。</li><li class="reveal">過去の稼働実績・表示している数値は、将来の成果を示すものでも保証するものでもありません。</li><li class="reveal">重要指標の前後など、稼働を止めるべき日があります。運用ルールとして事前に案内します。</li><li class="reveal">利用は余剰資金の範囲で、ご自身の判断と責任のもとで行ってください。</li></ul></div></section><section class="sec sec--principles" id="principles"><div class="wrap"><p class="sec-kicker reveal">PRINCIPLES</p><h2 class="reveal">ビクターの規律</h2><div class="grid grid-3 stagger"><div class="card"><span class="card-no">01</span><h3>降り方から覚える</h3><p>入り方より先に、止め方。危険日に稼働を止める運用ルールが先にある。</p></div><div class="card"><span class="card-no">02</span><h3>張るのは余剰資金だけ</h3><p>生活費で勝負する時点で、それは勝負ではなく自滅だ。</p></div><div class="card"><span class="card-no">03</span><h3>連敗を設計に入れる</h3><p>負けが続く期間は必ず来る。それを前提にした資金管理だけが生き残る。</p></div></div></div></section><section class="sec sec--system" id="system"><div class="wrap"><p class="sec-kicker reveal">THE SYSTEM</p><h2 class="reveal">システムの事実</h2><p class="sec-lead reveal">数字は誇張しない。勝負の道具は正確に把握しろ。</p><div class="grid grid-2 stagger"><div class="card feat"><h3>高頻度ロジック</h3><p>1日あたり約350回前後のエントリーを自動執行。人間の手では再現できない頻度を、決められたルール通りに淡々と実行します。</p><p class="note">※回数は目安であり、相場環境により変動します。</p></div><div class="card feat"><h3>危険日は、止める</h3><p>重要指標の前後や流動性の低い日は稼働を止めることを前提にした運用設計。回すことより「止める判断」を重視しています。</p></div><div class="card feat"><h3>無料である理由</h3><p>利用者の稼働データ・継続率・検証データがブローカーのシステム改善に活かされ、開発側はその技術協力・共同検証の対価を受け取ります。だから利用者は無料です。</p></div><div class="card feat"><h3>設置まで伴走</h3><p>申請からMT5の設置、稼働開始までを手順書とサポートで案内します。わからないまま放置しません。</p></div></div></div></section><section class="sec sec--whyfree" id="whyfree"><div class="wrap"><p class="sec-kicker reveal">WHY FREE</p><h2 class="reveal">なぜ、無料なのか</h2><p class="sec-lead reveal">タダより高いものはない——普段ならそう言う。だからこそ、金の流れを先に見せる。</p><div class="grid grid-3 stagger"><div class="card win"><p class="win-who">利用者</p><p>システムを無料で利用できる。仕組みとリスクの説明を先に受けられる。</p></div><div class="card win"><p class="win-who">ブローカー</p><p>稼働データ・利用傾向・検証データがサービス改善に活かされる。</p></div><div class="card win"><p class="win-who">開発チーム</p><p>技術協力・共同検証・データ提供の対価として報酬を受け取る。</p></div></div><p class="whyfree-note reveal">利用者・ブローカー・開発チームの三者がそれぞれ利益を得る構造だから、利用者への請求が必要ありません。報酬は技術協力・共同検証・データ提供の対価です。</p></div></section><section class="sec sec--steps" id="steps"><div class="wrap"><p class="sec-kicker reveal">HOW TO START</p><h2 class="reveal">始め方は、3ステップ</h2><div class="grid grid-3 stagger"><div class="card step"><span class="num">01</span><h3>申請</h3><p>申請フォームから必要事項を送信。内容の確認・案内の連絡があります。</p></div><div class="card step"><span class="num">02</span><h3>設置</h3><p>MT5の設置を手順書とサポートで案内。環境が苦手でも順番に進められます。</p></div><div class="card step"><span class="num">03</span><h3>稼働</h3><p>危険日ルールと資金管理の案内とあわせて、稼働を開始します。</p></div></div></div></section><section class="sec sec--faq" id="faq"><div class="wrap"><p class="sec-kicker reveal">FAQ</p><h2 class="reveal">よくある質問</h2><div class="faq-list"><details class="reveal"><summary>本当に無料ですか？お金はどこから出ているのですか？</summary><p>無料だ。稼働データと検証データがブローカーの改善に使われ、開発側は技術協力・共同検証の対価を受け取る。利用者に請求しない理由は、この構造で全部説明がつく。</p></details><details class="reveal"><summary>必ず利益が出ますか？</summary><p>保証はない。相場で断定を口にする人間からは離れろ。損失の可能性を織り込んで、余剰資金で判断しろ。</p></details><details class="reveal"><summary>何から始めればいいですか？</summary><p>申請、設置、稼働。それより先に「止める日」のルールを頭に入れろ。話はそれからだ。</p></details><details class="reveal"><summary>JAY（AURUM）との関係は？</summary><p>JAY（AURUM）と同じ運営グループだ。同じ仕組みを、俺は勝負の規律という切り口で話している。</p></details></div></div></section>
+<section class="sec sec--risk" id="risk"><div class="wrap"><p class="sec-kicker reveal">RISK DISCLOSURE</p><h2 class="reveal">先に、リスクの話</h2><p class="sec-lead reveal">損失の可能性から目を逸らすなら、この先を読まなくていい。</p><ul class="risk-list"><li class="reveal">外国為替証拠金取引（FX）は価格変動により損失が生じるリスクを伴い、投資元本を割り込む可能性があります。</li><li class="reveal">過去の稼働実績・表示している数値は、将来の成果を示すものでも保証するものでもありません。</li><li class="reveal">重要指標の前後など、稼働を止めるべき日があります。運用ルールとして事前に案内します。</li><li class="reveal">利用は余剰資金の範囲で、ご自身の判断と責任のもとで行ってください。</li></ul></div></section><section class="sec sec--calendar" id="calendar"><div class="wrap"><p class="sec-kicker reveal">DANGER DAYS</p><h2 class="reveal">止める日は、先に決めてあります</h2><p class="sec-lead reveal">重要指標の前後は、回さない。直近の停止・警戒予定を先に公開しておきます。</p><div class="cal reveal" id="cal-list"></div><p class="note">※スケジュールは変更される場合があります。停止の最終判断は運用ルールに基づき、事前に案内します。</p></div></section><section class="sec sec--sig okite-sec" id="sig okite-sec"><div class="wrap"><p class="sec-kicker reveal">THE CODE</p><h2 class="reveal">ビクターの掟・五箇条</h2><p class="sec-lead reveal">この五つを守れない間は、申請しなくていい。</p><ul class="okite"><li class="reveal"><span class="no">一</span>生活費は、張らない。</li><li class="reveal"><span class="no">二</span>止める日を、先に決める。</li><li class="reveal"><span class="no">三</span>連敗を、設計に入れる。</li><li class="reveal"><span class="no">四</span>道具に、夢を見ない。</li><li class="reveal"><span class="no">五</span>降りる自由を、手放さない。</li></ul></div></section><section class="sec sec--principles" id="principles"><div class="wrap"><p class="sec-kicker reveal">PRINCIPLES</p><h2 class="reveal">ビクターの規律</h2><div class="grid grid-3 stagger"><div class="card"><span class="card-no">01</span><h3>降り方から覚える</h3><p>入り方より先に、止め方。危険日に稼働を止める運用ルールが先にある。</p></div><div class="card"><span class="card-no">02</span><h3>張るのは余剰資金だけ</h3><p>生活費で勝負する時点で、それは勝負ではなく自滅だ。</p></div><div class="card"><span class="card-no">03</span><h3>連敗を設計に入れる</h3><p>負けが続く期間は例外なく来る。それを前提にした資金管理だけが生き残る。</p></div></div></div></section><section class="sec sec--system" id="system"><div class="wrap"><p class="sec-kicker reveal">THE SYSTEM</p><h2 class="reveal">システムの事実</h2><p class="sec-lead reveal">数字は誇張しない。勝負の道具は正確に把握しろ。</p><div class="grid grid-2 stagger"><div class="card feat"><h3>高頻度ロジック</h3><p>1日あたり約350回前後のエントリーを自動執行。人間の手では再現できない頻度を、決められたルール通りに淡々と実行します。</p><p class="note">※回数は目安であり、相場環境により変動します。</p></div><div class="card feat"><h3>危険日は、止める</h3><p>重要指標の前後や流動性の低い日は稼働を止めることを前提にした運用設計。回すことより「止める判断」を重視しています。</p></div><div class="card feat"><h3>無料である理由</h3><p>利用者の稼働データ・継続率・検証データがブローカーのシステム改善に活かされ、開発側はその技術協力・共同検証の対価を受け取ります。だから利用者は無料です。</p></div><div class="card feat"><h3>設置まで伴走</h3><p>申請からMT5の設置、稼働開始までを手順書とサポートで案内します。わからないまま放置しません。</p></div></div></div></section><section class="sec sec--whyfree" id="whyfree"><div class="wrap"><p class="sec-kicker reveal">WHY FREE</p><h2 class="reveal">なぜ、無料なのか</h2><p class="sec-lead reveal">タダより高いものはない——普段ならそう言う。だからこそ、金の流れを先に見せる。</p><div class="grid grid-3 stagger"><div class="card win"><p class="win-who">利用者</p><p>システムを無料で利用できる。仕組みとリスクの説明を先に受けられる。</p></div><div class="card win"><p class="win-who">ブローカー</p><p>稼働データ・利用傾向・検証データがサービス改善に活かされる。</p></div><div class="card win"><p class="win-who">開発チーム</p><p>技術協力・共同検証・データ提供の対価として報酬を受け取る。</p></div></div><p class="whyfree-note reveal">利用者・ブローカー・開発チームの三者がそれぞれ利益を得る構造だから、利用者への請求が必要ありません。報酬は技術協力・共同検証・データ提供の対価です。</p></div></section><section class="sec sec--compare" id="compare"><div class="wrap"><p class="sec-kicker reveal">COMPARISON</p><h2 class="reveal">よくあるパターンとの違い</h2><p class="sec-lead reveal">何が違うのかは、構造で比べるのがいちばん早いです。</p><div class="table-wrap reveal"><table class="sig-table cmp"><thead><tr><th>項目</th><th>よくあるパターン</th><th>この仕組み</th></tr></thead><tbody><tr class="reveal"><th>導入費用</th><td>数万〜数十万円のEA販売も多い</td><td class="ours">0円（収益源は技術協力の対価として開示）</td></tr><tr class="reveal"><th>収益源の説明</th><td>曖昧なままのことが多い</td><td class="ours">先に開示（データ提供・共同検証の対価）</td></tr><tr class="reveal"><th>リスクの説明</th><td>良い話が中心になりがち</td><td class="ours">損失の可能性から先に説明</td></tr><tr class="reveal"><th>資金の預かり</th><td>預け入れ・代理運用型も存在する</td><td class="ours">なし。資金はご自身の口座のまま</td></tr><tr class="reveal"><th>危険日の扱い</th><td>回し続ける前提が多い</td><td class="ours">停止を前提に、予定を事前公開</td></tr><tr class="reveal"><th>やめる自由</th><td>解約条件が付く場合もある</td><td class="ours">いつでも停止・取り外し可能</td></tr></tbody></table></div><p class="note">※一般的な傾向との比較であり、特定の事業者・商品を指すものではありません。</p></div></section><section class="sec sec--steps" id="steps"><div class="wrap"><p class="sec-kicker reveal">HOW TO START</p><h2 class="reveal">始め方は、3ステップ</h2><div class="grid grid-3 stagger"><div class="card step"><span class="num">01</span><h3>申請</h3><p>申請フォームから必要事項を送信。内容の確認・案内の連絡があります。</p></div><div class="card step"><span class="num">02</span><h3>設置</h3><p>MT5の設置を手順書とサポートで案内。環境が苦手でも順番に進められます。</p></div><div class="card step"><span class="num">03</span><h3>稼働</h3><p>危険日ルールと資金管理の案内とあわせて、稼働を開始します。</p></div></div><p class="steps-note reveal">申請から稼働開始までは、早ければ3営業日ほどが目安です。<span class="note">※混雑状況・環境により前後します。</span></p></div></section><section class="sec sec--faq" id="faq"><div class="wrap"><p class="sec-kicker reveal">FAQ</p><h2 class="reveal">よくある質問</h2><div class="faq-list"><details class="reveal"><summary>本当に無料ですか？お金はどこから出ているのですか？</summary><p>無料だ。稼働データと検証データがブローカーの改善に使われ、開発側は技術協力・共同検証の対価を受け取る。利用者に請求しない理由は、この構造で全部説明がつく。</p></details><details class="reveal"><summary>必ず利益が出ますか？</summary><p>保証はない。相場で断定を口にする人間からは離れろ。損失の可能性を織り込んで、余剰資金で判断しろ。</p></details><details class="reveal"><summary>何から始めればいいですか？</summary><p>申請、設置、稼働。それより先に「止める日」のルールを頭に入れろ。話はそれからだ。</p></details><details class="reveal"><summary>途中でやめることはできますか？</summary><p>いつでも降りられる。それがこの仕組みの一番の安全装置だ。降り際を縛る話には乗るな。ここは、いつ降りても構わない。</p></details><details class="reveal"><summary>これは投資助言ですか？</summary><p>助言はしない。張るか降りるか、いくら張るかは全部あんたの決断だ。俺が渡すのは道具と、止まるためのルールだけだ。</p></details></div></div></section>
 <section class="quoteband"><div class="wrap"><p class="quote reveal">“守れない奴に、攻める資格はない。”</p><p class="quote-by reveal">— VICTOR</p></div></section>
 <section class="final">
   <div class="wrap">
@@ -142,15 +191,40 @@ footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em
     <h2 class="reveal">降り方を理解した者だけ、来い。</h2>
     <p class="reveal">止める日を守れるなら、申請しろ。守れないなら、このシステムはあんたを守れない。</p>
     <a class="btn reveal" href="https://aurum-lux-official.github.io/Jayforluxea/?utm_source=victor&utm_medium=char_lp&utm_campaign=ea_squad">引き際を理解した上で申請する</a>
-    <p class="disclosure">本ページは JAY／AURUM と同一の運営グループが運営する、キャラクター別のご案内ページです。</p>
+    <p class="final-note">内容とリスクをご確認のうえ、ご自身の判断でお申し込みください。</p>
   </div>
 </section>
 <footer>
   <div class="wrap">
     <p class="legal">【免責事項およびリスク開示】本ページに表示する数値（エントリー回数・稼働ユーザー数等）は、運営の内部データに基づく直近の目安であり、将来の運用成果を示すものでも、利益を保証するものでもありません。実際の結果は、入金額・運用期間・相場環境、および利用者ご自身の判断・設定により大きく異なり、投資元本を割り込む損失が生じる可能性があります。本サービスの利用、口座開設、入金額の決定は、すべて利用者ご自身の判断と責任において行ってください。外国為替証拠金取引（FX）は価格変動により損失が生じるリスクを伴います。</p>
-    <p class="cr">© 2026 AURUM GROUP — VICTOR</p>
+    <p class="cr">© 2026 VICTOR</p>
   </div>
 </footer>
+<script>
+(function(){
+  var pad = function(n){ return (n < 10 ? "0" : "") + n; };
+  var now = new Date();
+  var iso = now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
+  var asof = document.getElementById("asof-date");
+  if (asof) asof.textContent = now.getFullYear() + "/" + pad(now.getMonth() + 1) + "/" + pad(now.getDate());
+  var list = document.getElementById("cal-list");
+  if (!list) return;
+  var EVENTS = [["2026-07-09", "03:00", "US", "FOMC議事要旨 (6月会合)", 2], ["2026-07-14", "21:30", "US", "CPI (消費者物価指数・6月)", 3], ["2026-07-15", "21:30", "US", "PPI (生産者物価・6月)", 2], ["2026-07-16", "21:30", "US", "小売売上高 (6月)", 3], ["2026-07-23", "21:15", "EU", "ECB政策金利発表", 3], ["2026-07-24", "23:00", "US", "新築住宅販売件数 (6月)", 2], ["2026-07-28", "23:00", "US", "CB消費者信頼感指数 (7月)", 2], ["2026-07-30", "03:00", "US", "FOMC政策金利発表", 3], ["2026-07-30", "21:30", "US", "GDP速報値 (Q2)", 3], ["2026-07-31", "12:00", "JP", "日銀金融政策決定会合", 3], ["2026-07-31", "21:30", "US", "PCEコアデフレーター (6月)", 3], ["2026-08-03", "23:00", "US", "ISM製造業景況指数 (7月)", 3], ["2026-08-07", "21:30", "US", "雇用統計 (非農業部門・7月)", 3], ["2026-08-12", "21:30", "US", "CPI (消費者物価指数・7月)", 3], ["2026-08-13", "21:30", "US", "PPI (生産者物価・7月)", 2], ["2026-08-14", "21:30", "US", "小売売上高 (7月)", 3], ["2026-08-20", "03:00", "US", "FOMC議事要旨 (7月会合)", 2], ["2026-08-21", "23:00", "US", "ジャクソンホール経済シンポジウム", 3], ["2026-08-27", "21:30", "US", "GDP改定値 (Q2)", 2], ["2026-08-28", "21:30", "US", "PCEコアデフレーター (7月)", 3]];
+  var wd = ["日","月","火","水","木","金","土"];
+  var upcoming = EVENTS.filter(function(e){ return e[0] >= iso; }).slice(0, 6);
+  if (!upcoming.length) {
+    list.innerHTML = '<p class="cal-empty">直近の停止予定は更新準備中です。稼働中の方には運用ルールに基づき事前に案内します。</p>';
+    return;
+  }
+  list.innerHTML = upcoming.map(function(e){
+    var d = new Date(e[0] + "T00:00:00");
+    var label = (d.getMonth() + 1) + "/" + d.getDate() + "（" + wd[d.getDay()] + "）" + e[1];
+    var badge = e[4] >= 3 ? '<span class="cal-badge b3">停止予定</span>' : '<span class="cal-badge b2">警戒</span>';
+    return '<div class="cal-row"><span class="cal-date">' + label + '</span>'
+         + '<span class="cal-ev">' + e[3] + '<em>' + e[2] + '</em></span>' + badge + '</div>';
+  }).join("");
+})();
+</script>
 <script type="module">
 import { animate, scroll, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.13.5/+esm";
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -163,6 +237,9 @@ if (reduce) {
   animate(".hero .btn-hero", { opacity: [0, 1], y: [14, 0] }, { duration: 0.6, delay: 0.6 });
   animate(".hero .chip", { opacity: [0, 1], y: [20, 0] }, { duration: 0.6, delay: stagger(0.1, { startDelay: 0.7 }) });
   scroll(animate(".progress", { scaleX: [0, 1] }, { easing: "linear" }));
+  const heroEl = document.querySelector(".hero");
+  scroll(animate(".hero-bg", { y: [0, -60] }, { easing: "linear" }),
+    { target: heroEl, offset: ["start start", "end start"] });
   inView(".reveal", (el) => {
     animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
   }, { margin: "0px 0px -60px 0px" });
