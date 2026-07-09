@@ -47,8 +47,24 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;
   align-items:center;padding:14px 24px;background:color-mix(in srgb,var(--bg) 82%,transparent);
   backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav .brand{font-family:var(--fd);letter-spacing:.18em;font-size:.95rem;color:var(--ink);text-decoration:none}
+.nav .brand{font-family:var(--fd);letter-spacing:.18em;font-size:.95rem;color:var(--ink);text-decoration:none;white-space:nowrap}
 .nav .brand em{font-style:normal;color:var(--accent)}
+.nav-l{display:flex;align-items:center;gap:26px;min-width:0}
+.nav-menu{display:flex;gap:22px}
+.nav-menu a{color:var(--mut);text-decoration:none;font-size:.82rem;letter-spacing:.14em;transition:color .25s;white-space:nowrap}
+.nav-menu a:hover{color:var(--accent2)}
+.nav-burger{display:none;background:none;border:1px solid var(--line);border-radius:6px;color:var(--ink);
+  font-size:1rem;padding:.3em .55em;cursor:pointer}
+.sec,.final,header.hero{scroll-margin-top:64px}
+@media(max-width:1000px){
+  .nav-l{gap:14px}
+  .nav .brand em{display:none}
+  .nav-menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+    background:color-mix(in srgb,var(--bg) 96%,transparent);border-bottom:1px solid var(--line);padding:8px 0}
+  .nav-menu.open{display:flex}
+  .nav-menu a{padding:.95em 24px;font-size:.92rem;border-top:1px solid var(--line)}
+  .nav-burger{display:inline-block}
+}
 .btn{display:inline-block;font-family:var(--fb);font-weight:600;text-decoration:none;
   color:#0B0B0B;background:linear-gradient(120deg,var(--accent),var(--accent2));
   padding:.9em 2.1em;border-radius:var(--radius);letter-spacing:.08em;position:relative;overflow:hidden;
@@ -382,8 +398,19 @@ footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em
 <body class="theme-editorial">
 <div class="progress"></div>
 <nav class="nav">
-  <a class="brand" href="#">JOHNNY PORSCHE<em> ／ ジョニーポルシュ</em></a>
-  <a class="btn" href="#apply">仕組みを理解した上で申請する</a>
+  <div class="nav-l">
+    <button class="nav-burger" id="nav-burger" aria-label="メニュー" aria-expanded="false">☰</button>
+    <a class="brand" href="#">JOHNNY PORSCHE<em> ／ ジョニーポルシュ</em></a>
+    <div class="nav-menu" id="nav-menu">
+      <a href="#system">システム</a>
+      <a href="#ranking">実績</a>
+      <a href="#pricing">料金</a>
+      <a href="#risk">リスク</a>
+      <a href="#guide">導入</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+  <a class="btn" href="#apply">申請</a>
 </nav>
 <header class="hero hero--bleed">
   <div class="hero-bg"></div>
@@ -482,6 +509,22 @@ footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em
     return '<div class="cal-row"><span class="cal-date">' + label + '</span>'
          + '<span class="cal-ev">' + e[3] + '<em>' + e[2] + '</em></span>' + badge + '</div>';
   }).join("");
+})();
+</script>
+<script>
+(function(){
+  // モバイルメニュー開閉
+  var bg = document.getElementById("nav-burger");
+  var menu = document.getElementById("nav-menu");
+  if (bg && menu) {
+    bg.addEventListener("click", function(){
+      var open = menu.classList.toggle("open");
+      bg.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    menu.querySelectorAll("a").forEach(function(a){
+      a.addEventListener("click", function(){ menu.classList.remove("open"); bg.setAttribute("aria-expanded","false"); });
+    });
+  }
 })();
 </script>
 <script>
