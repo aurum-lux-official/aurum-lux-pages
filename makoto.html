@@ -405,7 +405,41 @@ details p{color:var(--mut);padding:0 0 1.4em;max-width:46em;font-size:.95rem}
 footer{border-top:1px solid var(--line);padding:56px 0 72px}
 footer .legal{color:var(--mut);font-size:.8rem;line-height:1.9;max-width:60em}
 footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em}
-html.anim .reveal,html.anim .stagger>*{opacity:0}
+/* v15: シネマティック・コレオグラフィ（CSS駆動・Motion非依存） */
+html.anim .hero:not(.in) .kicker,html.anim .hero:not(.in) .hero-name,html.anim .hero:not(.in) .lead,
+html.anim .hero:not(.in) .btn-hero,html.anim .hero:not(.in) .asof{opacity:0;transform:translateY(14px)}
+html.anim .hero:not(.in) h1{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(26px)}
+html.anim .hero:not(.in) .chip{opacity:0;transform:translateY(20px)}
+html.anim .hero:not(.in) .hero-crest-badge,html.anim .hero:not(.in) .hero-crest-deco{opacity:0;transform:scale(.93)}
+.hero .kicker,.hero h1,.hero .hero-name,.hero .lead,.hero .btn-hero,.hero .asof,.hero .chip,
+.hero-crest-badge,.hero-crest-deco{transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1),clip-path 1.05s cubic-bezier(.22,1,.36,1)}
+.hero h1{transition-delay:.12s}.hero .hero-name{transition-delay:.34s}.hero .lead{transition-delay:.44s}
+.hero .btn-hero{transition-delay:.56s}.hero .asof{transition-delay:.64s}
+.hero .chip:nth-child(1){transition-delay:.7s}.hero .chip:nth-child(2){transition-delay:.8s}.hero .chip:nth-child(3){transition-delay:.9s}
+.hero-crest-badge,.hero-crest-deco{transition-delay:.26s}
+html.anim :is(.sec,.quoteband,.final):not(.in) .sec-kicker{opacity:0;transform:translateY(10px)}
+html.anim :is(.sec,.final):not(.in) h2{opacity:0;clip-path:inset(0 0 96% 0);transform:translateY(18px)}
+html.anim :is(.sec,.quoteband,.final):not(.in) .sec-lead{opacity:0;transform:translateY(12px)}
+html.anim :is(.sec,.quoteband,.final):not(.in) :is(.reveal,.stagger>*),
+html.anim .quoteband:not(.in) :is(.quote,.quote-by){opacity:0;transform:translateY(22px)}
+:is(.sec,.quoteband,.final) :is(.sec-kicker,.sec-lead,.reveal,.stagger>*),:is(.sec,.final) h2,.quote,.quote-by{
+  transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1),clip-path .85s cubic-bezier(.22,1,.36,1)}
+:is(.sec,.final) h2{transition-delay:.1s}
+:is(.sec,.final) .sec-lead{transition-delay:.24s}
+:is(.sec,.quoteband,.final) :is(.reveal,.stagger>*){transition-delay:calc(.32s + var(--i,0)*.055s)}
+.quote-by{transition-delay:.25s}
+.sec h2::after{width:0;transition:width .9s cubic-bezier(.22,1,.36,1) .5s}
+.sec.in h2::after{width:3.2em}
+.theme-wa .sec.in h2::after{width:100%}
+/* v15: タイポグラフィ格上げ */
+.sec h2,.final h2{letter-spacing:.07em}
+.sec-kicker{font-size:.72rem;letter-spacing:.34em}
+body{counter-reset:secn}
+.sec{counter-increment:secn}
+.sec .sec-kicker::after{content:" — " counter(secn,decimal-leading-zero);letter-spacing:.2em;opacity:.55}
+.sec-lead{line-height:2.15}
+.quote{font-size:clamp(1.5rem,3.4vw,2.3rem)}
+.quoteband{box-shadow:0 1px 0 color-mix(in srgb,var(--gold) 25%,transparent) inset,0 -1px 0 color-mix(in srgb,var(--gold) 25%,transparent) inset}
 @media (max-width:760px){
   .hero--split .hero-in{grid-template-columns:1fr}
   .hero--split .hero-stats{margin-top:2.4em}
@@ -534,6 +568,35 @@ html.anim .reveal,html.anim .stagger>*{opacity:0}
     return '<div class="cal-row"><span class="cal-date">' + label + '</span>'
          + '<span class="cal-ev">' + e[3] + '<em>' + e[2] + '</em></span>' + badge + '</div>';
   }).join("");
+})();
+</script>
+<script>
+(function(){
+  if (window.__animSafety) clearTimeout(window.__animSafety);
+  var secs = Array.prototype.slice.call(document.querySelectorAll(".sec, .quoteband, .final"));
+  secs.forEach(function(sec){
+    var items = sec.querySelectorAll(".reveal, .stagger > *");
+    for (var i = 0; i < items.length; i++) items[i].style.setProperty("--i", Math.min(i, 16));
+  });
+  function mark(el){ el.classList.add("in"); }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { mark(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -60px 0px", threshold: 0.04 });
+    secs.forEach(function(s){ io.observe(s); });
+  } else { secs.forEach(mark); }
+  var hero = document.querySelector(".hero");
+  function go(){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ if (hero) mark(hero); }); }); }
+  if (document.readyState !== "loading") go(); else document.addEventListener("DOMContentLoaded", go);
+  var ticks = 0;
+  var sv = setInterval(function(){
+    ticks++;
+    var vh = window.innerHeight;
+    secs.forEach(function(s){
+      if (!s.classList.contains("in") && s.getBoundingClientRect().top < vh + 90) mark(s);
+    });
+    if (ticks >= 12) clearInterval(sv);
+  }, 1000);
 })();
 </script>
 <script>
@@ -674,49 +737,10 @@ const animOK = document.documentElement.classList.contains("anim");
 if (reduce || !animOK) {
   document.documentElement.classList.remove("anim");
 } else {
-  animate(".hero .kicker", { opacity: [0, 1], y: [14, 0] }, { duration: 0.6 });
-  animate(".hero h1", { opacity: [0, 1], y: [26, 0] }, { duration: 0.8, delay: 0.15 });
-  animate(".hero .hero-name, .hero .lead", { opacity: [0, 1], y: [18, 0] }, { duration: 0.7, delay: stagger(0.12, { startDelay: 0.35 }) });
-  animate(".hero .btn-hero", { opacity: [0, 1], y: [14, 0] }, { duration: 0.6, delay: 0.6 });
-  animate(".hero .chip", { opacity: [0, 1], y: [20, 0] }, { duration: 0.6, delay: stagger(0.1, { startDelay: 0.7 }) });
-  animate(".hero-crest-badge, .hero-crest-deco", { opacity: [0, 1], scale: [0.88, 1] }, { duration: 1.1, delay: 0.25, easing: [0.16, 1, 0.3, 1] });
   scroll(animate(".progress", { scaleX: [0, 1] }, { easing: "linear" }));
   const heroEl = document.querySelector(".hero");
   scroll(animate(".hero-bg", { y: [0, -60] }, { easing: "linear" }),
     { target: heroEl, offset: ["start start", "end start"] });
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (!en.isIntersecting) return;
-      const el = en.target;
-      io.unobserve(el);
-      const ensure = (n) => setTimeout(() => { n.style.opacity = 1; n.style.transform = "none"; }, 1800);
-      if (el.classList.contains("stagger")) {
-        const kids = Array.from(el.children);
-        try {
-          animate(kids, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, delay: stagger(0.09) });
-        } catch (_) {}
-        kids.forEach(ensure);
-      } else {
-        try {
-          animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
-        } catch (_) {}
-        ensure(el);
-      }
-    });
-  }, { rootMargin: "0px 0px -60px 0px", threshold: 0.05 });
-  document.querySelectorAll(".reveal, .stagger").forEach((el) => io.observe(el));
-  let svTicks = 0;
-  const sv = setInterval(() => {
-    svTicks++;
-    const vh = window.innerHeight;
-    document.querySelectorAll(".reveal, .stagger > *").forEach((n) => {
-      const r = n.getBoundingClientRect();
-      if (r.top < vh + 80 && parseFloat(getComputedStyle(n).opacity) < 0.05) {
-        n.style.opacity = 1; n.style.transform = "none";
-      }
-    });
-    if (svTicks >= 10) clearInterval(sv);
-  }, 1200);
   document.querySelectorAll(".btn:not(.btn-hero)").forEach(b => {
     b.addEventListener("pointerenter", () => animate(b, { scale: 1.04 }, { type: "spring", stiffness: 320, damping: 20 }));
     b.addEventListener("pointerleave", () => animate(b, { scale: 1 }, { type: "spring", stiffness: 320, damping: 20 }));
