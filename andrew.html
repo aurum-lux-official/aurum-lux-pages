@@ -689,19 +689,34 @@ if (reduce || !animOK) {
       if (!en.isIntersecting) return;
       const el = en.target;
       io.unobserve(el);
+      const ensure = (n) => setTimeout(() => { n.style.opacity = 1; n.style.transform = "none"; }, 1800);
       if (el.classList.contains("stagger")) {
         const kids = Array.from(el.children);
         try {
           animate(kids, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, delay: stagger(0.09) });
-        } catch (_) {
-          kids.forEach(k => { k.style.opacity = 1; k.style.transform = "none"; });
-        }
+        } catch (_) {}
+        kids.forEach(ensure);
       } else {
-        animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
+        try {
+          animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
+        } catch (_) {}
+        ensure(el);
       }
     });
   }, { rootMargin: "0px 0px -60px 0px", threshold: 0.05 });
   document.querySelectorAll(".reveal, .stagger").forEach((el) => io.observe(el));
+  let svTicks = 0;
+  const sv = setInterval(() => {
+    svTicks++;
+    const vh = window.innerHeight;
+    document.querySelectorAll(".reveal, .stagger > *").forEach((n) => {
+      const r = n.getBoundingClientRect();
+      if (r.top < vh + 80 && parseFloat(getComputedStyle(n).opacity) < 0.05) {
+        n.style.opacity = 1; n.style.transform = "none";
+      }
+    });
+    if (svTicks >= 10) clearInterval(sv);
+  }, 1200);
   document.querySelectorAll(".btn:not(.btn-hero)").forEach(b => {
     b.addEventListener("pointerenter", () => animate(b, { scale: 1.04 }, { type: "spring", stiffness: 320, damping: 20 }));
     b.addEventListener("pointerleave", () => animate(b, { scale: 1 }, { type: "spring", stiffness: 320, damping: 20 }));

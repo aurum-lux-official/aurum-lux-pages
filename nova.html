@@ -415,7 +415,7 @@ html.anim .reveal,html.anim .stagger>*{opacity:0}
   *{animation:none!important;transition:none!important}
   .reveal,.stagger>*{opacity:1!important;transform:none!important}
 }
-.hero--bleed .t2{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}.hero-bg{background-image:radial-gradient(1.5px 1.5px at 18% 30%,rgba(139,124,247,.5),transparent 100%),radial-gradient(1px 1px at 62% 68%,rgba(92,200,232,.45),transparent 100%),radial-gradient(1.5px 1.5px at 84% 22%,rgba(139,124,247,.4),transparent 100%),radial-gradient(1px 1px at 38% 82%,rgba(92,200,232,.35),transparent 100%),radial-gradient(60% 50% at 70% 12%,rgba(139,124,247,.16),transparent 70%)}.split2 .card h3{color:var(--accent)}.split2 .card.human h3{color:var(--accent2)}.split2 .card li{list-style:none;padding:.55em 0;border-bottom:1px solid var(--line);color:var(--mut);font-size:.95rem}
+.hero--bleed .t2{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}.hero-bg{background-image:radial-gradient(1.5px 1.5px at 18% 30%,rgba(139,124,247,.5),transparent 100%),radial-gradient(1px 1px at 62% 68%,rgba(92,200,232,.45),transparent 100%),radial-gradient(1.5px 1.5px at 84% 22%,rgba(139,124,247,.4),transparent 100%),radial-gradient(1px 1px at 38% 82%,rgba(92,200,232,.35),transparent 100%)}.hero-bg::after{content:'';position:absolute;inset:-30%;pointer-events:none;background:radial-gradient(46% 38% at 62% 34%,rgba(139,124,247,.17),transparent 72%),radial-gradient(38% 30% at 34% 58%,rgba(92,200,232,.11),transparent 74%),radial-gradient(30% 26% at 74% 66%,rgba(120,240,200,.06),transparent 76%);will-change:transform;animation:nvAur 16s ease-in-out infinite alternate}@keyframes nvAur{from{transform:translate3d(-4%,-2%,0) rotate(0deg)}to{transform:translate3d(4%,3%,0) rotate(9deg)}}.hero::after{content:'';position:absolute;left:-20%;right:-20%;bottom:0;height:40%;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(139,124,247,.13) 0 1px,transparent 1px 90px),repeating-linear-gradient(0deg,rgba(92,200,232,.09) 0 1px,transparent 1px 36px);transform:perspective(620px) rotateX(62deg);transform-origin:bottom;-webkit-mask-image:linear-gradient(transparent,#000 55%);mask-image:linear-gradient(transparent,#000 55%)}.hero-crest-deco{overflow:visible}.hero-crest-deco::before{content:'';position:absolute;inset:-11%;border:1px dashed rgba(92,200,232,.28);border-radius:50%;animation:crestspin 44s linear infinite reverse}.hero-crest-deco::after{content:'';position:absolute;inset:-24%;border:1px solid rgba(139,124,247,.16);border-radius:50%;animation:crestspin 96s linear infinite}.chip{background:rgba(16,14,29,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-color:rgba(139,124,247,.22)}.card{background:rgba(16,14,29,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}.card{position:relative}.card::after{content:'';position:absolute;top:9px;left:9px;width:13px;height:13px;border-top:1px solid rgba(92,200,232,.55);border-left:1px solid rgba(92,200,232,.55);pointer-events:none}.card::before{content:'';position:absolute;bottom:9px;right:9px;width:13px;height:13px;border-bottom:1px solid rgba(139,124,247,.5);border-right:1px solid rgba(139,124,247,.5);pointer-events:none}.sec-kicker::before{content:'[ ';display:inline;width:auto;height:1em;background:none;margin-right:.1em;vertical-align:baseline;opacity:1}.sec-kicker::after{content:' ]'}.chip b{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;background:linear-gradient(110deg,var(--ink) 20%,var(--accent) 55%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}.btn{box-shadow:0 8px 34px rgba(139,124,247,.4),inset 0 0 0 1px rgba(255,255,255,.16)}.btn-hero{animation:nvPulse 3.4s ease-in-out infinite}@keyframes nvPulse{50%{box-shadow:0 10px 48px rgba(92,200,232,.55),inset 0 0 0 1px rgba(255,255,255,.24)}}.progress{background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));background-size:200% 100%;animation:nvFlow 6s linear infinite}@keyframes nvFlow{to{background-position:200% 0}}.split2 .card h3{color:var(--accent)}.split2 .card.human h3{color:var(--accent2)}.split2 .card li{list-style:none;padding:.55em 0;border-bottom:1px solid var(--line);color:var(--mut);font-size:.95rem}
 </style>
 <script>(function(){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("anim");window.__animSafety=setTimeout(function(){document.documentElement.classList.remove("anim")},2500)}})();</script>
 </head>
@@ -689,19 +689,34 @@ if (reduce || !animOK) {
       if (!en.isIntersecting) return;
       const el = en.target;
       io.unobserve(el);
+      const ensure = (n) => setTimeout(() => { n.style.opacity = 1; n.style.transform = "none"; }, 1800);
       if (el.classList.contains("stagger")) {
         const kids = Array.from(el.children);
         try {
           animate(kids, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, delay: stagger(0.09) });
-        } catch (_) {
-          kids.forEach(k => { k.style.opacity = 1; k.style.transform = "none"; });
-        }
+        } catch (_) {}
+        kids.forEach(ensure);
       } else {
-        animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
+        try {
+          animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
+        } catch (_) {}
+        ensure(el);
       }
     });
   }, { rootMargin: "0px 0px -60px 0px", threshold: 0.05 });
   document.querySelectorAll(".reveal, .stagger").forEach((el) => io.observe(el));
+  let svTicks = 0;
+  const sv = setInterval(() => {
+    svTicks++;
+    const vh = window.innerHeight;
+    document.querySelectorAll(".reveal, .stagger > *").forEach((n) => {
+      const r = n.getBoundingClientRect();
+      if (r.top < vh + 80 && parseFloat(getComputedStyle(n).opacity) < 0.05) {
+        n.style.opacity = 1; n.style.transform = "none";
+      }
+    });
+    if (svTicks >= 10) clearInterval(sv);
+  }, 1200);
   document.querySelectorAll(".btn:not(.btn-hero)").forEach(b => {
     b.addEventListener("pointerenter", () => animate(b, { scale: 1.04 }, { type: "spring", stiffness: 320, damping: 20 }));
     b.addEventListener("pointerleave", () => animate(b, { scale: 1 }, { type: "spring", stiffness: 320, damping: 20 }));
