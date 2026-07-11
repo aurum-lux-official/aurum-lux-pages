@@ -397,7 +397,7 @@ details p{color:var(--mut);padding:0 0 1.4em;max-width:46em;font-size:.95rem}
 footer{border-top:1px solid var(--line);padding:56px 0 72px}
 footer .legal{color:var(--mut);font-size:.8rem;line-height:1.9;max-width:60em}
 footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em}
-.reveal,.stagger>*{opacity:0}
+html.anim .reveal,html.anim .stagger>*{opacity:0}
 @media (max-width:760px){
   .hero--split .hero-in{grid-template-columns:1fr}
   .hero--split .hero-stats{margin-top:2.4em}
@@ -409,6 +409,7 @@ footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em
 }
 .hero-bg::after{content:'◆';position:absolute;right:6vw;top:18vh;font-size:11rem;color:rgba(140,47,57,.10);line-height:1}.sec--risk .risk-list li{border-left:2px solid var(--accent);border-bottom:none;padding-left:1.4em;margin-bottom:.6em}.okite li{font-family:var(--fb);font-size:1.05rem;padding:1em 0;border-bottom:1px solid var(--line);list-style:none}.okite li::before{content:none}.okite .no{font-family:var(--fd);color:var(--accent);margin-right:1em;letter-spacing:.2em}
 </style>
+<script>(function(){if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("anim");window.__animSafety=setTimeout(function(){document.documentElement.classList.remove("anim")},2500)}})();</script>
 </head>
 <body class="theme-bands">
 <div class="progress"></div>
@@ -660,8 +661,10 @@ footer .cr{margin-top:2em;color:var(--mut);font-size:.75rem;letter-spacing:.12em
 <script type="module">
 import { animate, scroll, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.13.5/+esm";
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (reduce) {
-  document.querySelectorAll(".reveal, .stagger > *").forEach(el => { el.style.opacity = 1; });
+if (window.__animSafety) clearTimeout(window.__animSafety);
+const animOK = document.documentElement.classList.contains("anim");
+if (reduce || !animOK) {
+  document.documentElement.classList.remove("anim");
 } else {
   animate(".hero .kicker", { opacity: [0, 1], y: [14, 0] }, { duration: 0.6 });
   animate(".hero h1", { opacity: [0, 1], y: [26, 0] }, { duration: 0.8, delay: 0.15 });
@@ -673,12 +676,20 @@ if (reduce) {
   const heroEl = document.querySelector(".hero");
   scroll(animate(".hero-bg", { y: [0, -60] }, { easing: "linear" }),
     { target: heroEl, offset: ["start start", "end start"] });
-  inView(".reveal", (el) => {
-    animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
-  }, { margin: "0px 0px -60px 0px" });
-  inView(".stagger", (el) => {
-    animate(el.children, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, delay: stagger(0.09) });
-  }, { margin: "0px 0px -60px 0px" });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      const el = en.target;
+      io.unobserve(el);
+      if (el.classList.contains("stagger")) {
+        animate(el, { opacity: 1 }, { duration: 0.01 });
+        animate(el.children, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, delay: stagger(0.09) });
+      } else {
+        animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, easing: "ease-out" });
+      }
+    });
+  }, { rootMargin: "0px 0px -60px 0px", threshold: 0.05 });
+  document.querySelectorAll(".reveal, .stagger").forEach((el) => io.observe(el));
   document.querySelectorAll(".btn:not(.btn-hero)").forEach(b => {
     b.addEventListener("pointerenter", () => animate(b, { scale: 1.04 }, { type: "spring", stiffness: 320, damping: 20 }));
     b.addEventListener("pointerleave", () => animate(b, { scale: 1 }, { type: "spring", stiffness: 320, damping: 20 }));
