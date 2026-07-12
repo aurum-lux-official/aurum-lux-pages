@@ -157,12 +157,13 @@ details p{color:var(--mut);padding:0 0 1.4em;max-width:46em;font-size:.95rem}
 .hero--split .hero-stats-wrap .asof{margin-top:0}
 .steps-note{margin-top:2em;color:var(--ink);font-size:.95rem;border-left:2px solid var(--accent);padding:.3em 0 .3em 1.1em;max-width:44em}
 .steps-note .note{display:block;margin-top:.2em}
-.cal{margin-top:2em;display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:0 48px;align-items:start}
-.cal-row{display:flex;align-items:baseline;gap:1.2em;padding:1em 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.cal-date{font-family:var(--fm);color:var(--ink);font-size:.9rem;min-width:11em}
-.cal-ev{flex:1;color:var(--mut);font-size:.95rem;min-width:14em}
-.cal-ev em{font-style:normal;font-family:var(--fm);color:var(--accent);font-size:.75rem;margin-left:.6em;letter-spacing:.15em}
-.cal-badge{font-size:.72rem;letter-spacing:.18em;padding:.3em .9em;border-radius:999px;white-space:nowrap}
+.cal{margin-top:2em;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:0 40px;align-items:start}
+.cal-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:.4em 1.1em;padding:1em 0;border-bottom:1px solid var(--line);text-align:left}
+.cal-date{font-family:var(--fm);color:var(--ink);font-size:.86rem;white-space:nowrap}
+.cal-ev{color:var(--mut);font-size:.92rem;min-width:0;overflow-wrap:anywhere}
+.cal-ev em{font-style:normal;font-family:var(--fm);color:var(--accent);font-size:.72rem;margin-left:.5em;letter-spacing:.12em;white-space:nowrap}
+.cal-badge{font-size:.7rem;letter-spacing:.14em;padding:.3em .8em;border-radius:999px;white-space:nowrap;justify-self:end}
+@media(max-width:560px){.cal-row{grid-template-columns:minmax(0,1fr) auto;gap:.2em .7em}.cal-date{grid-column:1 / -1;font-size:.8rem}}
 .cal-badge.b3{color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
 .cal-badge.b2{color:var(--mut);border:1px solid var(--line)}
 .cal-empty{color:var(--mut);font-size:.9rem;padding:1.2em 0}
