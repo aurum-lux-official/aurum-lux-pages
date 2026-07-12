@@ -441,6 +441,9 @@ body{counter-reset:secn}
 .sec-lead{line-height:2.15}
 .quote{font-size:clamp(1.5rem,3.4vw,2.3rem)}
 .quoteband{box-shadow:0 1px 0 color-mix(in srgb,var(--gold) 25%,transparent) inset,0 -1px 0 color-mix(in srgb,var(--gold) 25%,transparent) inset}
+/* v17: 日本語の禁則強化（語中改行を文節単位に）＋料金表モバイル縦積み */
+.lead,.sec-lead,.card p,.feat p,details p,.risk-list li,.voice-q,.cal-ev,.whyfree-note,.f-note,.steps-note,.final p,.m-topics li,.price-row span,.win p,.sys3 p,.soon-card p{word-break:auto-phrase;line-break:strict}
+@media(max-width:560px){.price-row{flex-direction:column;align-items:flex-start;gap:.3em}.price-row b{text-align:left}.price-row b.zero{font-size:1.3rem}}
 @media (max-width:760px){
   .hero--split .hero-in{grid-template-columns:1fr}
   .hero--split .hero-stats{margin-top:2.4em}
