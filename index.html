@@ -1,29 +1,220 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EA拡販10部隊 — キャラ別LP ハブ（内部確認用・公開リポに入れない）</title>
-<meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#070B14;color:#EAE7DF;font-family:'Shippori Mincho',serif;line-height:1.8;padding:64px 24px}
-.wrap{max-width:1100px;margin:0 auto}
-h1{font-family:'Cormorant Garamond','Shippori Mincho',serif;font-size:clamp(1.6rem,4vw,2.6rem);letter-spacing:.06em}
-.sub{color:#A8B0C0;margin:.8em 0 2.5em;font-size:.9rem}
-.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.hubcard{display:block;text-decoration:none;color:#EAE7DF;background:#0D1322;border:1px solid rgba(255,255,255,.09);
-  border-top:2px solid var(--a);border-radius:6px;padding:26px;transition:transform .25s,border-color .25s}
-.hubcard:hover{transform:translateY(-4px);border-color:var(--a)}
-.en{color:var(--a);letter-spacing:.25em;font-size:.72rem}
-.hubcard h2{font-size:1.3rem;margin:.3em 0}
-.role{color:#C5A059;font-size:.85rem}
-.q{color:#A8B0C0;font-size:.82rem;margin-top:.9em}
-.warn{color:#E8A13D;font-size:.78rem;margin-top:.9em}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="9つの視点から、自分に合うEAの考え方と運用方法を確認できるAURUM LUX SYSTEMSの案内ページです。">
+  <title>AURUM LUX SYSTEMS｜9つのEA案内</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #05070c;
+      --surface: #0c111b;
+      --text: #f5f1e8;
+      --muted: #a9afbb;
+      --line: rgba(255, 255, 255, .11);
+      --gold: #d8b56b;
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(53, 91, 143, .22), transparent 34rem),
+        radial-gradient(circle at 88% 12%, rgba(197, 160, 89, .15), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans JP", sans-serif;
+      line-height: 1.75;
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: 74vh;
+      align-items: end;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(5, 7, 12, .2), rgba(5, 7, 12, .86)),
+        url("og/johnny.png") center 34% / cover no-repeat;
+      content: "";
+      filter: saturate(.78);
+      opacity: .36;
+    }
+    .hero::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 58%);
+      content: "";
+    }
+    .hero-inner { position: relative; z-index: 1; padding: 116px 0 76px; }
+    .eyebrow, .card-kicker {
+      margin: 0;
+      color: var(--gold);
+      font-family: "Cormorant Garamond", serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 840px;
+      margin: 18px 0 22px;
+      font-family: "Cormorant Garamond", "Noto Sans JP", serif;
+      font-size: clamp(3.35rem, 10vw, 8rem);
+      font-weight: 600;
+      letter-spacing: -.035em;
+      line-height: .86;
+    }
+    h1 span {
+      display: block;
+      margin-top: .22em;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: clamp(1.2rem, 2.7vw, 2rem);
+      font-weight: 500;
+      letter-spacing: .08em;
+      line-height: 1.5;
+    }
+    .lead { max-width: 680px; margin: 0; color: #d4d6dc; font-size: clamp(.98rem, 1.6vw, 1.1rem); }
+    .section { padding: 90px 0 110px; }
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 480px);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 40px;
+    }
+    h2 {
+      margin: 8px 0 0;
+      font-family: "Cormorant Garamond", "Noto Sans JP", serif;
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 600;
+      line-height: 1;
+    }
+    .section-copy { margin: 0; color: var(--muted); font-size: .94rem; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .card {
+      --accent: var(--gold);
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+      background: linear-gradient(155deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .01));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      transition: border-color .25s ease, transform .25s ease;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-5px); }
+    .card-image { position: relative; aspect-ratio: 1.9 / 1; overflow: hidden; background: #0a0f18; }
+    .card-image::after {
+      position: absolute;
+      inset: auto 0 0;
+      height: 46%;
+      background: linear-gradient(transparent, var(--surface));
+      content: "";
+    }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+    .card:hover img { transform: scale(1.035); }
+    .card-body { display: flex; min-height: 270px; flex-direction: column; padding: 24px 24px 26px; }
+    .card h3 { margin: 8px 0 4px; font-size: 1.35rem; line-height: 1.4; }
+    .character { margin: 0; color: var(--muted); font-size: .82rem; }
+    .concept { margin: 18px 0 24px; color: #d6d8df; font-size: .91rem; }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 8px;
+      margin-top: auto;
+      color: var(--accent);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+    .card-link::after { content: "→"; transition: transform .2s ease; }
+    .card-link:hover::after { transform: translateX(4px); }
+    .card-link:focus-visible { border-radius: 4px; outline: 2px solid var(--accent); outline-offset: 5px; }
+    .notice {
+      margin-top: 54px;
+      padding: 24px 26px;
+      background: rgba(255, 255, 255, .025);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+    footer {
+      padding: 30px 0 42px;
+      border-top: 1px solid var(--line);
+      color: #7f8693;
+      font-family: "Cormorant Garamond", serif;
+      font-size: .76rem;
+      letter-spacing: .14em;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { grid-template-columns: 1fr; gap: 20px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 1180px); }
+      .hero { min-height: 68vh; }
+      .hero-inner { padding: 92px 0 54px; }
+      .section { padding: 66px 0 80px; }
+      .grid { grid-template-columns: 1fr; gap: 14px; }
+      .card-body { min-height: 0; padding: 20px 20px 22px; }
+      .concept { margin: 15px 0 22px; }
+      .notice { margin-top: 38px; padding: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
 </head>
-<body><div class="wrap">
-<h1>EA拡販10部隊 — キャラ別LP（9部隊）</h1>
-<p class="sub">内部確認用ハブ（このファイルは公開リポに入れない）。全LPのCTAは申請フォームへキャラ別UTM付きで合流します。</p>
-<div class="grid"><a class="hubcard" href="johnny.html" style="--a:#D8442E"><p class="en">JOHNNY PORSCHE</p><h2>ジョニーポルシュ</h2><p class="role">熱血 × 業界の本音</p><p class="q">“道具に夢を見るな。仕組みを理解して使え。”</p><p class="warn">⚠ パートナー確認前・SNS接続禁止</p></a><a class="hubcard" href="andrew.html" style="--a:#5B8DC9"><p class="en">ANDREW BLUE</p><h2>アンドリューブルー</h2><p class="role">分析 × 数字 × 検証</p><p class="q">“検証できない話は、聞かなくていい。”</p></a><a class="hubcard" href="aurelia.html" style="--a:#D9A798"><p class="en">AURELIA</p><h2>オレリア</h2><p class="role">品格 × 初心者の不安解消</p><p class="q">“安心は、説明の丁寧さから生まれます。”</p></a><a class="hubcard" href="victor.html" style="--a:#8C2F39"><p class="en">VICTOR</p><h2>ビクター</h2><p class="role">勝負師 × リスク管理</p><p class="q">“守れない奴に、攻める資格はない。”</p></a><a class="hubcard" href="mark.html" style="--a:#4F9D69"><p class="en">MARK</p><h2>マーク</h2><p class="role">実務 × 手順の案内係</p><p class="q">“複雑さは、だいたい説明不足のことです。”</p></a><a class="hubcard" href="maden.html" style="--a:#3FB8AF"><p class="en">MADEN</p><h2>マデン</h2><p class="role">技術 × 裏側の解説</p><p class="q">“説明できない仕組みは、実装されていないのと同じ。”</p></a><a class="hubcard" href="nova.html" style="--a:#8B7CF7"><p class="en">NOVA</p><h2>ノヴァ</h2><p class="role">未来 × 自動化 × 規律</p><p class="q">“自動化するべきは利益ではなく、規律。”</p></a><a class="hubcard" href="makoto.html" style="--a:#C5A059"><p class="en">MAKOTO</p><h2>真</h2><p class="role">誠実 × 日本人向けの透明性</p><p class="q">“正直は、いちばん強い営業だと思っています。”</p></a><a class="hubcard" href="pal.html" style="--a:#E8A13D"><p class="en">PAL</p><h2>パル</h2><p class="role">親しみ × 質問回答係</p><p class="q">“質問が出るページは、いいページ。”</p></a></div>
-</div></body></html>
+<body>
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">AURUM LUX SYSTEMS</p>
+      <h1>NINE PERSPECTIVES<span>9つの視点から、自分に合うEAを知る。</span></h1>
+      <p class="lead">相場の捉え方も、運用で重視することも人それぞれです。各案内役の考え方とシステムの特徴を見比べて、納得できるものから詳しくご確認ください。</p>
+    </div>
+  </header>
+  <main class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Choose Your Perspective</p>
+          <h2>9 SYSTEMS</h2>
+        </div>
+        <p class="section-copy">カードを選ぶと、仕組み、運用上の注意、費用、申請方法をまとめた各システムの案内ページへ進みます。</p>
+      </div>
+      <div class="grid">
+        <article class="card" style="--accent:#ef6a54"><div class="card-image"><img src="og/johnny.png" alt="Jaguarの案内役、ジョニーポルシュ" loading="lazy"></div><div class="card-body"><p class="card-kicker">Jaguar</p><h3>ジョニーポルシュ</h3><p class="character">EA業界の秘密</p><p class="concept">大衆の動きの逆を狙う、スマートマネーの考え方をもとにしたアルゴリズム。</p><a class="card-link" href="johnny.html">Jaguarの詳細を見る</a></div></article>
+        <article class="card" style="--accent:#69a9f4"><div class="card-image"><img src="og/andrew.png" alt="Revolutionの案内役、アンドリューブルー" loading="lazy"></div><div class="card-body"><p class="card-kicker">Revolution</p><h3>アンドリューブルー</h3><p class="character">XAU × CRYPTO</p><p class="concept">相場のキーレベルを基準に、値動きを細かく捉えるための精密システム。</p><a class="card-link" href="andrew.html">Revolutionの詳細を見る</a></div></article>
+        <article class="card" style="--accent:#e4ae9e"><div class="card-image"><img src="og/aurelia.png" alt="Oro Premiumの案内役、オレリア" loading="lazy"></div><div class="card-body"><p class="card-kicker">Oro Premium</p><h3>オレリア</h3><p class="character">元ブローカー</p><p class="concept">大口の動きを意識しながら、安全性を重視して運用するヘッジシステム。</p><a class="card-link" href="aurelia.html">Oro Premiumの詳細を見る</a></div></article>
+        <article class="card" style="--accent:#e36d78"><div class="card-image"><img src="og/victor.png" alt="Amuletoの案内役、ビクター" loading="lazy"></div><div class="card-body"><p class="card-kicker">Amuleto</p><h3>ビクター</h3><p class="character">EA開発者</p><p class="concept">攻める前に停止条件と資金管理を決め、安全性を優先して動かす運用設計。</p><a class="card-link" href="victor.html">Amuletoの詳細を見る</a></div></article>
+        <article class="card" style="--accent:#73d694"><div class="card-image"><img src="og/mark.png" alt="Sigillo Segretoの案内役、マーク" loading="lazy"></div><div class="card-body"><p class="card-kicker">Sigillo Segreto</p><h3>マーク</h3><p class="character">EA制作2000件以上</p><p class="concept">システムの選択から申請、設置、稼働開始までを順番に進められる導入設計。</p><a class="card-link" href="mark.html">Sigillo Segretoの詳細を見る</a></div></article>
+        <article class="card" style="--accent:#57d7cc"><div class="card-image"><img src="og/maden.png" alt="Smart Goldの案内役、マデン" loading="lazy"></div><div class="card-body"><p class="card-kicker">Smart Gold</p><h3>マデン</h3><p class="character">アルゴマネージャー</p><p class="concept">数学と統計モデルを軸に、GOLDをはじめとする市場の構造を捉えるシステム。</p><a class="card-link" href="maden.html">Smart Goldの詳細を見る</a></div></article>
+        <article class="card" style="--accent:#9e91ff"><div class="card-image"><img src="og/nova.png" alt="Belle Roseの案内役、ノヴァ" loading="lazy"></div><div class="card-body"><p class="card-kicker">Belle Rose</p><h3>ノヴァ</h3><p class="character">AI最速ロジック</p><p class="concept">マーケットメーカーが狙う価格帯に着目した、高速反応型システム。</p><a class="card-link" href="nova.html">Belle Roseの詳細を見る</a></div></article>
+        <article class="card" style="--accent:#dfbd71"><div class="card-image"><img src="og/makoto.png" alt="KOTOBUKIの案内役、マコト" loading="lazy"></div><div class="card-body"><p class="card-kicker">KOTOBUKI</p><h3>マコト</h3><p class="character">EA生成会社</p><p class="concept">長い期間をかけて磨かれてきた、AMT理論をもとにしたシステム。</p><a class="card-link" href="makoto.html">KOTOBUKIの詳細を見る</a></div></article>
+        <article class="card" style="--accent:#f0ad4f"><div class="card-image"><img src="og/pal.png" alt="P&amp;Lの案内役、パル" loading="lazy"></div><div class="card-body"><p class="card-kicker">P&amp;L</p><h3>パル</h3><p class="character">おもしろFX</p><p class="concept">EAを使う前の疑問を整理しながら、自分に合う仕組みを選ぶための入門案内。</p><a class="card-link" href="pal.html">P&amp;Lの詳細を見る</a></div></article>
+      </div>
+      <aside class="notice" aria-label="リスクに関する注意事項">FX・CFD取引は価格変動により損失が生じ、投資元本を割り込む可能性があります。各ページに掲載する数値や過去の稼働結果は、将来の成果や利益を保証するものではありません。内容とリスクをご確認のうえ、余剰資金の範囲でご自身の判断と責任によりご利用ください。本サイトは投資助言を目的としたものではありません。</aside>
+    </div>
+  </main>
+  <footer>AURUM LUX SYSTEMS</footer>
+</body>
+</html>
